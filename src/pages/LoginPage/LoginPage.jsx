@@ -5,7 +5,7 @@ import { ReactComponent as ShowPasswordIcon } from "../../assets/images/visibili
 import { ReactComponent as HidePasswordIcon } from "../../assets/images/visibility_off.svg";
 import { ReactComponent as PersonIcon } from "../../assets/images/person.svg";
 
-export const LoginPage = () => {
+export const LoginPage = ({setIsAuthenticated}) => {
   const [useremail, setUseremail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -48,6 +48,7 @@ export const LoginPage = () => {
       localStorage.setItem("user", JSON.stringify(data.user));
 
       alert("You've logged in successfully.");
+      setIsAuthenticated(true);
       navigate("/user-management");
     } catch (error) {
       setErrorMessage("An error occurred. Please check your connection.");
