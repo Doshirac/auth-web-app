@@ -20,7 +20,7 @@ import { getRelativeTime } from "./helpers/time/getRelativeTime";
 import { getComparator } from "./helpers/sorting/getComparator";
 import { stableSort } from "./helpers/sorting/stableSort";
 import { useFetchWithAuth } from "../../hooks/useFetchWithAuth";
-import Button from "../../components/Button/Button";
+import Button from "../Button/Button";
 import { ReactComponent as DeleteIcon } from "../../assets/images/delete.svg";
 import { ReactComponent as LockIcon } from "../../assets/images/lock_person.svg";
 import { ReactComponent as UnlockIcon } from "../../assets/images/lock_open.svg";
