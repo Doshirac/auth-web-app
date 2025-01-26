@@ -6,7 +6,7 @@ module.exports = {
     colors: {
       violet: "#985ACE",
       white: "#ffffff",
-      purple: "#F8F1FF",
+      purple: "F8F1FF",
     },
     spacing: {
       width: {
