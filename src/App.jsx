@@ -10,8 +10,8 @@ const App = () => {
   return (
     <div className="m-0 bg-violet flex flex-col items-center">
       <Routes>
-        <Route
-          path="/"
+        <Route exact
+          path="/auth-web-app"
           element={<Navigate to={isAuthenticated ? "/user-management" : "/login"} />}
         />
         <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
