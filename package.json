@@ -1,7 +1,7 @@
 {
   "name": "auth-web-app",
   "version": "0.1.0",
-  "homepage": "https://doshic.github.io/auth-web-app",
+  "homepage": "https://Doshirac.github.io/auth-web-app",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.14.0",
