@@ -20,7 +20,7 @@ export const RegistrationPage = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/register", {
+      const response = await fetch(`${process.env.BACKEND_URL}:5000/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: useremail, password, name }),
@@ -34,10 +34,7 @@ export const RegistrationPage = () => {
         }
         return;
       }
-
-      // If user is registered successfully:
       alert("You've registered successfully. Now you can login.");
-      // Redirect to login page
       navigate("/login");
     } catch (error) {
       setErrorMessage("An error occurred. Please check your connection.");

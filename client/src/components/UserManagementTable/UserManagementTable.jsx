@@ -41,7 +41,7 @@ export const UserManagementTable = ({ currentUserId }) => {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetchWithAuth("http://localhost:5000/api/users");
+      const response = await fetchWithAuth(`${process.env.BACKEND_URL}:5000/api/users`);
       if (!response.ok) {
         throw new Error("Failed to fetch users");
       }
@@ -54,7 +54,7 @@ export const UserManagementTable = ({ currentUserId }) => {
 
   const handleAction = async (action) => {
     try {
-      const response = await fetchWithAuth(`http://localhost:5000/api/users/${action}`, {
+      const response = await fetchWithAuth(`${process.env.BACKEND_URL}:5000/api/users/${action}`, {
         method: action === "delete" ? "DELETE" : "POST",
         headers: {
           "Content-Type": "application/json",
