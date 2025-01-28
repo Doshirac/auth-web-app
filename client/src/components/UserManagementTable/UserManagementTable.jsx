@@ -25,7 +25,7 @@ import { ReactComponent as DeleteIcon } from "../../assets/images/delete.svg";
 import { ReactComponent as LockIcon } from "../../assets/images/lock_person.svg";
 import { ReactComponent as UnlockIcon } from "../../assets/images/lock_open.svg";
 
-export const UserManagementTable = () => {
+export const UserManagementTable = ({ currentUserId }) => {
   const [users, setUsers] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [order, setOrder] = useState("asc");
@@ -83,7 +83,9 @@ export const UserManagementTable = () => {
 
   const handleSelectAll = (event) => {
     if (event.target.checked) {
-      const allUserIds = users.map((u) => u.id);
+      const allUserIds = users
+      .map((u) => u.id)
+      .filter((id) => id !== currentUserId);;
       setSelectedUsers(allUserIds);
     } else {
       setSelectedUsers([]);
@@ -91,6 +93,8 @@ export const UserManagementTable = () => {
   };
 
   const handleRowSelection = (userId) => {
+    if (userId === currentUserId) return;
+
     setSelectedUsers((prev) =>
       prev.includes(userId) ? prev.filter((id) => id !== userId) : [...prev, userId]
     );
@@ -149,11 +153,13 @@ export const UserManagementTable = () => {
                 <Checkbox
                   indeterminate={
                     selectedUsers.length > 0 &&
-                    selectedUsers.length < filteredUsers.length
+                    selectedUsers.length <
+                      filteredUsers.filter((u) => u.id !== currentUserId).length
                   }
                   checked={
                     filteredUsers.length > 0 &&
-                    selectedUsers.length === filteredUsers.length
+                    selectedUsers.length ===
+                      filteredUsers.filter((u) => u.id !== currentUserId).length
                   }
                   onChange={handleSelectAll}
                 />
@@ -219,6 +225,7 @@ export const UserManagementTable = () => {
           <TableBody>
             {paginatedUsers.map((user) => {
               const selected = isSelected(user.id);
+              const isCurrentUser = user.id === currentUserId;
               const displayNameStyle =
                 user.status === "blocked"
                   ? { textDecoration: "line-through", opacity: 0.6 }
