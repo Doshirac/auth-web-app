@@ -21,7 +21,6 @@ router.post("/register", async (req, res) => {
       password,
       saltRounds
     );
-
     const result = await pool.query(
       `INSERT INTO Users (email, password, salt, name, last_login, registration_time, status) 
        VALUES ($1, $2, $3, $4, NOW(), NOW(), 'active') RETURNING id, email, name`,
@@ -40,6 +39,7 @@ router.post("/register", async (req, res) => {
     if (error.code === "23505") {
       return res.status(400).json({ message: "Email already exists" });
     }
+    console.error("Error registering user:", error);
     res.status(500).json({ message: "Server error" });
   }
 });

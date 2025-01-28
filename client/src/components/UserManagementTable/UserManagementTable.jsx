@@ -41,7 +41,7 @@ export const UserManagementTable = ({ currentUserId }) => {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetchWithAuth("http://localhost:5000/api/users");
+      const response = await fetchWithAuth("/api/users");
       if (!response.ok) {
         throw new Error("Failed to fetch users");
       }
