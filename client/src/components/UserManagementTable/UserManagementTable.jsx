@@ -25,7 +25,7 @@ import { ReactComponent as DeleteIcon } from "../../assets/images/delete.svg";
 import { ReactComponent as LockIcon } from "../../assets/images/lock_person.svg";
 import { ReactComponent as UnlockIcon } from "../../assets/images/lock_open.svg";
 
-export const UserManagementTable = ({ currentUserId }) => {
+export const UserManagementTable = () => {
   const [users, setUsers] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [order, setOrder] = useState("asc");
@@ -54,7 +54,7 @@ export const UserManagementTable = ({ currentUserId }) => {
 
   const handleAction = async (action) => {
     try {
-      const response = await fetchWithAuth(`http://localhost:5000/api/users/${action}`, {
+      const response = await fetchWithAuth(`/api/users/${action}`, {
         method: action === "delete" ? "DELETE" : "POST",
         headers: {
           "Content-Type": "application/json",
@@ -83,9 +83,7 @@ export const UserManagementTable = ({ currentUserId }) => {
 
   const handleSelectAll = (event) => {
     if (event.target.checked) {
-      const allUserIds = users
-      .map((u) => u.id)
-      .filter((id) => id !== currentUserId);;
+      const allUserIds = users.map((u) => u.id);
       setSelectedUsers(allUserIds);
     } else {
       setSelectedUsers([]);
@@ -93,8 +91,6 @@ export const UserManagementTable = ({ currentUserId }) => {
   };
 
   const handleRowSelection = (userId) => {
-    if (userId === currentUserId) return;
-
     setSelectedUsers((prev) =>
       prev.includes(userId) ? prev.filter((id) => id !== userId) : [...prev, userId]
     );
@@ -153,13 +149,11 @@ export const UserManagementTable = ({ currentUserId }) => {
                 <Checkbox
                   indeterminate={
                     selectedUsers.length > 0 &&
-                    selectedUsers.length <
-                      filteredUsers.filter((u) => u.id !== currentUserId).length
+                    selectedUsers.length < filteredUsers.length
                   }
                   checked={
                     filteredUsers.length > 0 &&
-                    selectedUsers.length ===
-                      filteredUsers.filter((u) => u.id !== currentUserId).length
+                    selectedUsers.length === filteredUsers.length
                   }
                   onChange={handleSelectAll}
                 />
@@ -225,7 +219,6 @@ export const UserManagementTable = ({ currentUserId }) => {
           <TableBody>
             {paginatedUsers.map((user) => {
               const selected = isSelected(user.id);
-              const isCurrentUser = user.id === currentUserId;
               const displayNameStyle =
                 user.status === "blocked"
                   ? { textDecoration: "line-through", opacity: 0.6 }
